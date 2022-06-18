@@ -34,5 +34,6 @@ class Profile(models.Model):
   name  = models.CharField(max_length=60, null=True, blank=True)
   profile_picture = CloudinaryField('media', null=True)
   bio = models.TextField(max_length=200, null=True, blank=True)
-  
+  location = models.CharField(max_length=60, null=True, blank=True)
+  neighborhood = models.ForeignKey(Neighborhood, on_delete=models.SET_NULL, null=True, blank=True, related_name='members')
 
