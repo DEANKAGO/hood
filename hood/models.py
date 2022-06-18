@@ -32,5 +32,7 @@ class Neighborhood(models.Model):
 class Profile(models.Model):
   user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
   name  = models.CharField(max_length=60, null=True, blank=True)
+  profile_picture = CloudinaryField('media', null=True)
+  bio = models.TextField(max_length=200, null=True, blank=True)
   
 
