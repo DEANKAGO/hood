@@ -26,3 +26,11 @@ class Neighborhood(models.Model):
   @classmethod
   def find_neighborhood(cls, neighborhood_id):
     return cls.objects.filter(id=neighborhood_id)
+
+
+
+class Profile(models.Model):
+  user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
+  name  = models.CharField(max_length=60, null=True, blank=True)
+  
+
