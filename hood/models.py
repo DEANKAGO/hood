@@ -61,5 +61,13 @@ class Business(models.Model):
   user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='owner')
   neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE, related_name='business')
 
+  def __str__(self):
+    return f'{self.name} Business'
+
+  def create_business(self):
+    self.save()
+
+ 
+
 
 
