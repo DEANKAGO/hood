@@ -6,6 +6,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
   path('', views.index, name='index'),
+  path('all-hoods/', views.all_hoods, name='hood'),
 ]
 
 if settings.DEBUG:
