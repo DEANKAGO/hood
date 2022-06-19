@@ -27,7 +27,7 @@ def single_hood(request, hood_id):
       business_form.neighborhood = hood 
       business_form.user = request.user.profile
       business_form.save()
-      return render('main/single_hood.html', hood.id)
+      return render('single_hood', hood.id)
   else:
     form = BusinessForm()
   context = {
