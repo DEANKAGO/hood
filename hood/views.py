@@ -51,3 +51,10 @@ def create_hood(request):
   else:
     form = NeighborhoodForm()
   return render(request, 'main/create_hood.html',)
+
+
+
+def members(request):
+  hood = Neighborhood.objects.get(id=hood_id)
+  members = Profile.objects.filter(neighborhood=hood)
+  return render(request, 'main/members.html', {'members': members})
