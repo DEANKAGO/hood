@@ -9,6 +9,7 @@ urlpatterns = [
   path('all_hoods/', views.all_hoods, name='hood'),
   path('single_hood/<hood_id>', views.single_hood, name='single_hood'),
   path('new_hood/', views.create_hood, name='new_hood'),
+  path('<hood_id>/members', views.members, name='members'),
 ]
 
 if settings.DEBUG:
