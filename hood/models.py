@@ -7,7 +7,7 @@ from django.dispatch import receiver
 
 # Create your models here.
 
-class Neighborhood(models.Model):
+class Neighbourhood(models.Model):
   name = models.CharField(max_length=60)
   logo = CloudinaryField('media', null=True)
   admin = models.ForeignKey("Profile", on_delete=models.CASCADE, related_name="hood")
@@ -19,15 +19,15 @@ class Neighborhood(models.Model):
   def __str__(self):
     return f'{self.name} hood'
 
-  def create_neighborhood(self):
+  def create_neighbourhood(self):
     self.save()
 
-  def delete_neighborhood(self):
+  def delete_neighbourhood(self):
     self.delete()
 
   @classmethod
-  def find_neighborhood(cls, neighborhood_id):
-    return cls.objects.filter(id=neighborhood_id)
+  def find_neighbourhood(cls, neighbourhood_id):
+    return cls.objects.filter(id=neighbourhood_id)
 
 
 
@@ -38,7 +38,7 @@ class Profile(models.Model):
   bio = models.TextField(max_length=200, null=True, blank=True)
   location = models.CharField(max_length=60, null=True, blank=True)
   email = models.EmailField(max_length=200)
-  neighborhood = models.ForeignKey(Neighborhood, on_delete=models.SET_NULL, null=True, blank=True, related_name='members')
+  neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.SET_NULL, null=True, blank=True, related_name='members')
 
   def __str__(self):
     return f'{self.user.username} profile'
@@ -59,7 +59,7 @@ class Business(models.Model):
   description = models.TextField(blank=True)
   email = models.EmailField(max_length=200)
   user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='owner')
-  neighborhood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE, related_name='business')
+  neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE, related_name='business')
 
   def __str__(self):
     return f'{self.name} Business'
@@ -81,4 +81,4 @@ class Post(models.Model):
   post = models.TextField(max_length=250, null=True, blank=True)
   date = models.DateTimeField(auto_now_add=True)
   user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='post_owner')
-  hood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE, related_name='hood_post')
+  hood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE, related_name='hood_post')

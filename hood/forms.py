@@ -7,11 +7,11 @@ from django.contrib.auth.forms import UserCreationForm
 class BusinessForm(forms.ModelForm):
   class Meta:
     model = Business
-    exclude = ('user', 'neighborhood')
+    exclude = ('user', 'neighbourhood')
 
 
 
-class NeighborhoodForm(forms.ModelForm):
+class NeighbourhoodForm(forms.ModelForm):
   class Meta:
-    model = Neighborhood
+    model = Neighbourhood
     exclude = ('admin')
