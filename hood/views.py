@@ -8,6 +8,10 @@ def index(request):
   return render(request, 'main/index.html')
 
 
+def profile(request, username):
+  return render(request, 'main/profile.html')
+
+
 def all_hoods(request):
   all_hoods = Neighbourhood.objects.all()
   all_hoods = all_hoods[::-1]
