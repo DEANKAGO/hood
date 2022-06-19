@@ -80,6 +80,5 @@ class Post(models.Model):
   title = models.CharField(max_length=100, null=True)
   post = models.TextField(max_length=250, null=True, blank=True)
   date = models.DateTimeField(auto_now_add=True)
-
-
-
+  user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='post_owner')
+  hood = models.ForeignKey(Neighborhood, on_delete=models.CASCADE, related_name='hood_post')
