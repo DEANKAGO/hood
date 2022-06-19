@@ -5,6 +5,8 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
+  path('register/', views.register, name='signup'),
+  path('account/', include('django.contrib.auth.urls')),
   path('', views.index, name='index'),
   path('profile/<username>', views.profile, name='profile'),
   path('profile/<username>/edit/', views.update_profile, name='update_profile'),
