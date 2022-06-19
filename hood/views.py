@@ -54,7 +54,7 @@ def create_hood(request):
 
 
 
-def members(request):
+def members(request, hood_id):
   hood = Neighborhood.objects.get(id=hood_id)
   members = Profile.objects.filter(neighborhood=hood)
   return render(request, 'main/members.html', {'members': members})
