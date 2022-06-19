@@ -12,6 +12,18 @@ def profile(request, username):
   return render(request, 'main/profile.html')
 
 
+def update_profile(request, username):
+  user = user.objects.get(username=username)
+  if request.method == 'POST':
+    form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
+    if form.is_valid():
+      form.save()
+      return redirect('profile', user.username)
+  else:
+    form = UpdateProfileForm(instance=request.user.profile)
+  return render(request, 'main/update_profile.html', {'form': form})
+
+
 def all_hoods(request):
   all_hoods = Neighbourhood.objects.all()
   all_hoods = all_hoods[::-1]
