@@ -106,3 +106,18 @@ def search_business(request):
   else:
     message = 'Search a category for results'
   return render(request, 'main/results.html')
+
+
+def create_post(request, hood_id):
+  hood = Neighbourhood.objects.get(id=hood_id)
+  if request.method == 'POST':
+    form = PostForm(request.POST)
+    if form.is_valid():
+      post = form.save()
+      post.hood = hood
+      post.user = request.user.profile
+      post.save()
+      return redirect('single_hood', hood.id)
+  else:
+    form = PostForm()
+  return render(request, 'main/post.html', {'form': form})
