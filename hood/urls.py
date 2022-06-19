@@ -10,6 +10,7 @@ urlpatterns = [
   path('single_hood/<hood_id>', views.single_hood, name='single_hood'),
   path('new_hood/', views.create_hood, name='new_hood'),
   path('<hood_id>/members', views.members, name='members'),
+  path('join_hood/<id>', views.join_hood, name='join_hood'),
 ]
 
 if settings.DEBUG:
