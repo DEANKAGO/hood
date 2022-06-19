@@ -37,3 +37,17 @@ def single_hood(request, hood_id):
     'posts': posts,
   }
   return render(request, 'main/single_hood.html', context)
+
+
+
+def create_hood(request):
+  if request.method == 'POST':
+    form = NeighborhoodForm(request.POST, request.FILES)
+    if form.is_valid():
+      hood = form.save(commit=False)
+      hood.admin = request.user.profile
+      hood.save()
+      return redirect('hood')
+  else:
+    form = NeighborhoodForm()
+  return render(request, 'main/create_hood.html',)
