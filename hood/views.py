@@ -24,6 +24,8 @@ def update_profile(request, username):
   return render(request, 'main/update_profile.html', {'form': form})
 
 
+
+
 def all_hoods(request):
   all_hoods = Neighbourhood.objects.all()
   all_hoods = all_hoods[::-1]
@@ -89,3 +91,18 @@ def leave_hood(request, id):
   request.user.profile.neighbourhood = None
   request.user.profile.save()
   return redirect('hood')
+
+
+def search_business(request):
+  if request.method == 'GET':
+    name = request.GET.get('title')
+    results = Business.objects.filter(name__icontains=name).all()
+    message = f'name'
+    context = {
+      'results': results,
+      'message': message
+    }
+    return render(request, 'main/results.html', context)
+  else:
+    message = 'Search a category for results'
+  return render(request, 'main/results.html')
