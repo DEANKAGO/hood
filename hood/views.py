@@ -6,3 +6,9 @@ from django.contrib.auth.models import User
 
 def index(request):
   return render(request, 'main/index.html')
+
+
+def all_hoods(request):
+  all_hoods = Neighborhood.objects.all()
+  all_hoods = all_hoods[::-1]
+  return render(request, 'main/all_hoods.html', locals())
