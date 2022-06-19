@@ -5,3 +5,4 @@ from .models import *
 
 admin.site.register(Neighborhood),
 admin.site.register(Profile),
+admin.site.register(Business),
