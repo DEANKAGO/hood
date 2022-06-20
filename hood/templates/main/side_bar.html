@@ -15,20 +15,16 @@
         &nbsp; Profile
       </a>
     </li>
-    <li class="mb-4">
-      <a href="{% url 'update_profile' user.username %}">
-        <i class="fas fa-edit"></i>&nbsp; &nbsp; Edit Profile
-      </a>
-    </li>
+    
     <li class="mb-4">
       <a href="{% url 'hood' %}">
-        <i class="fas fa-home"></i>&nbsp; &nbsp; Hoods
+        <i class="fas fa-home"></i>&nbsp; &nbsp;All Hoods
       </a>
     </li>
 
     {% if user.profile.neighbourhood %}
     <li class="mb-4">
-      <a href="{% url 'single-hood' user.profile.neighbourhood.id %}">
+      <a href="{% url 'single_hood' user.profile.neighbourhood.id %}">
         <i class="fas fa-paper-plane"></i>&nbsp;
         &nbsp;{{user.profile.neighbourhood.name}}
       </a>

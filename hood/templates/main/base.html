@@ -45,15 +45,11 @@
   <body>
     <div class="wrapper">
       {% include 'main/side_bar.html' %}
-      <div
-        id="content"
-        style="
-          background-image: url();
-          background-repeat: no-repeat;
-          background-size: cover;
-        "
-      >
-        {% include 'main/navbar.html' %} {% block content %} {% endblock %}
+      <div id="content" style=" background-repeat:no-repeat;background-size:cover"> 
+        
+        {% include 'main/navbar.html' %} 
+        {% block content %} 
+        {% endblock %}
       </div>
     </div>
 

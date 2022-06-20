@@ -1,5 +1,5 @@
 {% extends 'main/base.html' %}
-{% load crispy_forms_tags %}
+{% load bootstrap4 %}
 {% block content %}
 <div class="container">
     <div class="row">
@@ -8,7 +8,8 @@
             <h3 class="text-center tt ">Add a post to your hood</h3>
             <form action="" method="post" novalidate>
                 {% csrf_token %}
-                {{ form|crispy }}
+                {% bootstrap_form form %}
+                
                 <button type="submit" class="btn btn-sm btn-info "> Post</button>
             </form>
         </div>

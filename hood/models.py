@@ -9,12 +9,12 @@ from django.dispatch import receiver
 
 class Neighbourhood(models.Model):
   name = models.CharField(max_length=60)
-  logo = CloudinaryField('media', null=True)
+  logo = CloudinaryField('media')
   admin = models.ForeignKey("Profile", on_delete=models.CASCADE, related_name="hood")
-  description = models.TextField(max_length=250, null=True, blank=True)
+  description = models.TextField(max_length=250)
   location = models.CharField(max_length=60)
-  police_number = models.IntegerField(null=True, blank=True)
-  health_number = models.IntegerField(null=True, blank=True)
+  police_number = models.IntegerField()
+  health_number = models.IntegerField()
 
   def __str__(self):
     return f'{self.name} hood'
@@ -43,20 +43,21 @@ class Profile(models.Model):
   def __str__(self):
     return f'{self.user.username} profile'
 
-  @receiver(post_save, sender=User)
-  def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-      profile.objects.create(user=instance)
+  def save_profile(self):
+    self.user
 
-  @receiver(post_save, sender=User)
-  def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()
+  def delete_profile(self):
+    self.delete()
+
+  @classmethod
+  def search_profile(cls, name):
+    return cls.objects.filter(user__username__icontains=name).all()
 
 
 
 class Business(models.Model):
   name = models.CharField(max_length=100)
-  description = models.TextField(blank=True)
+  description = models.TextField()
   email = models.EmailField(max_length=200)
   user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='owner')
   neighbourhood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE, related_name='business')
@@ -78,7 +79,17 @@ class Business(models.Model):
 
 class Post(models.Model):
   title = models.CharField(max_length=100, null=True)
-  post = models.TextField(max_length=250, null=True, blank=True)
+  post = models.TextField(max_length=250)
   date = models.DateTimeField(auto_now_add=True)
   user = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='post_owner')
-  hood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE, related_name='hood_post')
+  hood = models.ForeignKey(Neighbourhood, on_delete=models.CASCADE, default='', related_name='hood_post')
+
+  def save_post(self):
+    self.user
+
+  def delete_post(self):
+    self.delete()
+
+  @classmethod
+  def search_post(cls, name):
+    return cls.objects.filter(title__icontains=title).all()

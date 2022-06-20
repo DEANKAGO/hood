@@ -5,24 +5,31 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
+
 
 
 # Create your views here.
 
-
 def register(request):
-  if request.method == 'POST':
-    form = SignupForm(request.POST)
-    if form.is_valid():
-      form.save()
-      username = form.cleaned_data.get('username')
-      password = form.cleaned_data.get('password1')
-      user = authenticate(username=username, password=password)
-      login(request, user)
-      return redirect('index')
-  else:
-    form = SignupForm()
-  return render(request, 'registration/register.html', {form: form})
+    if request.method=="POST":
+        form=RegistrationForm(request.POST)
+        procForm=ProfileForm(request.POST, request.FILES)
+        if form.is_valid() and procForm.is_valid():
+            username=form.cleaned_data.get('username')
+            user=form.save()
+            profile=procForm.save(commit=False)
+            profile.user=user
+            profile.save()
+        return redirect('login')
+    else:
+        form= RegistrationForm()
+        prof=ProfileForm()
+    params={
+        'form':form,
+        'profForm': prof
+    }
+    return render(request, 'registration/register.html', params)
 
 
 
@@ -34,16 +41,24 @@ def profile(request, username):
   return render(request, 'main/profile.html')
 
 
-def update_profile(request, username):
-  user = user.objects.get(username=username)
+def update_profile(request):
+  user = request.user
+  # user = user.objects.get(username=username)
   if request.method == 'POST':
-    form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
-    if form.is_valid():
-      form.save()
-      return redirect('profile', user.username)
+    user_form = UserUpdateForm(request.POST, instance=request.user)
+    prof_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
+    if user_form.is_valid() and prof_form.is_valid():
+      user_form.save()
+      prof_form.save()
+      return redirect('profile', user.id)
   else:
-    form = UpdateProfileForm(instance=request.user.profile)
-  return render(request, 'main/update_profile.html', {'form': form})
+    user_form = UserUpdateForm(instance=request.user)
+    prof_form = UpdateProfileForm(instance=request.user.profile)
+  context = {
+    'user_form': user_form,
+    'prof_form': prof_form
+  }
+  return render(request, 'main/update_profile.html', context )
 
 
 
@@ -67,7 +82,7 @@ def single_hood(request, hood_id):
       business_form.neighbourhood = hood 
       business_form.user = request.user.profile
       business_form.save()
-      return render('single_hood', hood.id)
+      return redirect('single_hood', hood_id)
   else:
     form = BusinessForm()
   context = {
@@ -90,7 +105,7 @@ def create_hood(request):
       return redirect('hood')
   else:
     form = NeighbourhoodForm()
-  return render(request, 'main/create_hood.html',)
+  return render(request, 'main/create_hood.html', {'form': form})
 
 
 
@@ -126,20 +141,20 @@ def search_business(request):
     }
     return render(request, 'main/results.html', context)
   else:
-    message = 'Search a category for results'
+    message = 'Search a business name for results'
   return render(request, 'main/results.html')
 
 
 def create_post(request, hood_id):
-  hood = Neighbourhood.objects.get(id=hood_id)
+  # hood = Neighbourhood.objects.get(id=hood_id)
   if request.method == 'POST':
     form = PostForm(request.POST)
     if form.is_valid():
-      post = form.save()
-      post.hood = hood
+      post = form.save(commit=False)
+      # post.hood = hood
       post.user = request.user.profile
       post.save()
-      return redirect('single_hood', hood.id)
+      return redirect('single_hood', hood_id)
   else:
     form = PostForm()
-  return render(request, 'main/post.html', {'form': form})
+  return render(request, 'main/post.html', locals())
