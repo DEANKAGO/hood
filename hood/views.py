@@ -94,7 +94,7 @@ def single_hood(request, hood_id):
   return render(request, 'main/single_hood.html', context)
 
 
-
+@login_required(login_url='login') 
 def create_hood(request):
   if request.method == 'POST':
     form = NeighbourhoodForm(request.POST, request.FILES)
@@ -115,7 +115,7 @@ def members(request, hood_id):
   return render(request, 'main/members.html', {'members': members})
 
 
-
+@login_required(login_url='login') 
 def join_hood(request, id):
   neighbourhood = get_object_or_404(Neighbourhood, id=id)
   request.user.profile.neighbourhood = neighbourhood
@@ -144,7 +144,7 @@ def search_business(request):
     message = 'Search a business name for results'
   return render(request, 'main/results.html')
 
-
+@login_required(login_url='login') 
 def create_post(request, hood_id):
   # hood = Neighbourhood.objects.get(id=hood_id)
   if request.method == 'POST':
