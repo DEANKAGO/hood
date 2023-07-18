@@ -13,7 +13,6 @@ colorama==0.4.3
 config==0.5.1
 confusable-homoglyphs==3.2.0
 cryptography==2.8
-cupshelpers==1.0
 dbus-python==1.2.16
 defer==1.0.6
 distro==1.4.0
