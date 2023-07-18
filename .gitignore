@@ -1,0 +1,6 @@
+.vscode
+env_HOOD/
+__pycache__/
+.env
+media
+.env/

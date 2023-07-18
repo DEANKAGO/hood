@@ -802,7 +802,7 @@ var slice = [].slice,
     function TextLayer(options) {
       var keys;
       TextLayer.__super__.constructor.call(this, options);
-      keys = ["resourceType", "resourceType", "fontFamily", "fontSize", "fontWeight", "fontStyle", "textDecoration", "textAlign", "stroke", "letterSpacing", "lineSpacing", "fontHinting", "fontAntialiasing", "text", "textStyle"];
+      keys = ["resourceType", "resourceType", "fontFamily", "fontSize", "fontWeight", "fontStyle", "textDecoration", "textAlign", "stroke", "letterSpacing", "lineSpacing", "fontHinting", "fontAntialiasing", "text"];
       if (options != null) {
         keys.forEach((function(_this) {
           return function(key) {
@@ -886,11 +886,6 @@ var slice = [].slice,
       return this;
     };
 
-    TextLayer.prototype.textStyle = function(textStyle) {
-      this.options.textStyle = textStyle;
-      return this;
-    };
-
 
     /**
      * generate the string representation of the layer
@@ -926,10 +921,6 @@ var slice = [].slice,
     };
 
     TextLayer.prototype.textStyleIdentifier = function() {
-      // Note: if a text-style argument is provided as a whole, it overrides everything else, no mix and match.
-      if (!Util.isEmpty(this.options.textStyle)) {
-        return this.options.textStyle;
-      }
       var components;
       components = [];
       if (this.options.fontWeight !== "normal") {
@@ -1499,16 +1490,12 @@ var slice = [].slice,
       // operators
       operatorsPattern = "((" + operators + ")(?=[ _]))";
       operatorsReplaceRE = new RegExp(operatorsPattern, "g");
-      expression = expression.replace(operatorsReplaceRE, function (match) {
-        return Expression.OPERATORS[match];
-      });
+      expression = expression.replace(operatorsReplaceRE, match => Expression.OPERATORS[match]);
 
       // predefined variables
       predefinedVarsPattern = "(" + Object.keys(Expression.PREDEFINED_VARS).join("|") + ")";
       predefinedVarsReplaceRE = new RegExp(predefinedVarsPattern, "g");
-      expression = expression.replace(predefinedVarsReplaceRE, function(match, p1, offset){
-        return (expression[offset - 1] === '$' ? match : Expression.PREDEFINED_VARS[match]);
-      });
+      expression = expression.replace(predefinedVarsReplaceRE, (match, p1, offset) => (expression[offset - 1] === '$' ? match : Expression.PREDEFINED_VARS[match]));
 
       return expression.replace(/[ _]+/g, '_');
     };
@@ -4311,20 +4298,12 @@ var slice = [].slice,
               switch (false) {
                 case !/w_auto:breakpoints/.test(dataSrc):
                   requiredWidth = maxWidth(containerWidth, tag);
-                  if (requiredWidth) {
-                    dataSrc = dataSrc.replace(/w_auto:breakpoints([_0-9]*)(:[0-9]+)?/, "w_auto:breakpoints$1:" + requiredWidth);
-                  } else {
-                    setUrl = false;
-                  }
+                  dataSrc = dataSrc.replace(/w_auto:breakpoints([_0-9]*)(:[0-9]+)?/, "w_auto:breakpoints$1:" + requiredWidth);
                   break;
                 case !(match = /w_auto(:(\d+))?/.exec(dataSrc)):
                   requiredWidth = applyBreakpoints.call(this, tag, containerWidth, match[2], options);
                   requiredWidth = maxWidth(requiredWidth, tag);
-                  if (requiredWidth) {
-                    dataSrc = dataSrc.replace(/w_auto[^,\/]*/g, "w_" + requiredWidth);
-                  } else {
-                    setUrl = false;
-                  }
+                  dataSrc = dataSrc.replace(/w_auto[^,\/]*/g, "w_" + requiredWidth);
               }
               Util.removeAttribute(tag, 'width');
               if (!options.responsive_preserve_height) {
