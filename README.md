@@ -3,8 +3,7 @@
 ## Description : <p>This is a web application that allows you to be in the loop about everything happening in your neighborhood. From contact information of different handyman to meeting announcements or even alerts.</p>
 ##### By Martin Kago
 
-### hood link : https://kagohoods.herokuapp.com
-
+### hood link : https://hood.up.railway.app/
 ## Table of Content
 
 - [Description](#description)
