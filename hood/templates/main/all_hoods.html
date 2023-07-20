@@ -5,11 +5,13 @@
   <div class="row">
     {% for hood in all_hoods %}
     <div class="col-md-4">
-      <div class="card mb-4" style="min-height: 340px">
+      <div class="card mb-4" style="min-height: 400px">
         <img
+          class="card-img-top img-fluid"
           src="{{ hood.logo.url }}"
-          class="card-img-top"
           alt="{{ hood.name }}"
+          style="max-height: 25vh"
+          
         />
         <div class="card-body">
           <h5 class="card-title">
