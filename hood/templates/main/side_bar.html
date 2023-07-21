@@ -1,7 +1,7 @@
 <nav id="sidebar" class="">
   <div class="sidebar-header">
     <h3><a href="{% url 'index' %}">Hood Watch</a></h3>
-    <strong><i class="fas fa-home"></i></strong>
+    <strong><a href="{% url 'index' %}"><i class="fas fa-home"></i></a></strong>
   </div>
   {% if user.is_authenticated %}
   <ul class="list-unstyled components mr-2 ml-2">

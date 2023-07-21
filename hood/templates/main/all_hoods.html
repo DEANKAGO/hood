@@ -29,7 +29,7 @@
             >Leave Hood</a
           >
           {% elif not request.user.profile.neighbourhood %}
-          <a href="{% url 'join_hood' hood.id %}" class="btn btn-primary btn-sm"
+          <a href="{% url 'join_hood' hood.id %}" class="btn btn-primary btn-outline-success text-white btn-sm"
             >Join Hood</a
           >
           {% endif %}
