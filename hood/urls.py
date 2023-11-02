@@ -3,9 +3,11 @@ from . import views
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
+from django.contrib import admin
 
 
 urlpatterns = [
+  path('admin/', admin.site.urls),
   path('register/', views.register, name='signup'),
   path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
   path('logout/', auth_views.LogoutView.as_view(template_name='registration/logout.html'), name='logout'),
@@ -20,6 +22,7 @@ urlpatterns = [
   path('leave_hood/<id>', views.leave_hood, name='leave_hood'),
   path('search/', views.search_business, name='search'),
   path('new_post/<hood_id>', views.create_post, name='post'),
+
 
 ]
 

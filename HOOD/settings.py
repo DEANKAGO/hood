@@ -27,7 +27,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-la7qym1&x#c17_gn@@51(988mc$n71a0&xq9od$%&lu4fjw*8f'
 
-DATABASE_URL = 'postgresql://postgres:buTLv7NQzEMER4Ly4upL@containers-us-west-149.railway.app:7955/railway'
+# DATABASE_URL = 'postgresql://postgres:buTLv7NQzEMER4Ly4upL@containers-us-west-149.railway.app:7955/railway'
+DATABASE_URL = "postgres://default:psBt9RjQLV0C@ep-red-bush-64261157.us-east-1.postgres.vercel-storage.com:5432/verceldb"
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -48,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 

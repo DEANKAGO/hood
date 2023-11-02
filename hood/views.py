@@ -7,27 +7,25 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 
-
-
 # Create your views here.
 
 def register(request):
     if request.method=="POST":
-        form=RegistrationForm(request.POST)
-        procForm=ProfileForm(request.POST, request.FILES)
+        form = RegistrationForm(request.POST)
+        procForm = ProfileForm(request.POST, request.FILES)
         if form.is_valid() and procForm.is_valid():
-            username=form.cleaned_data.get('username')
+            # username=form.cleaned_data.get('username')
             user=form.save()
             profile=procForm.save(commit=False)
             profile.user=user
             profile.save()
         return redirect('login')
     else:
-        form= RegistrationForm()
-        prof=ProfileForm()
+        form = RegistrationForm()
+        profForm = ProfileForm()
     params={
         'form':form,
-        'profForm': prof
+        'profForm': profForm,
     }
     return render(request, 'registration/register.html', params)
 
